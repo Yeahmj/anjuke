@@ -5,11 +5,25 @@ from scrapy.spiders import CrawlSpider, Rule
 from anjuku.items import AnjukuItem
 import time
 
+# 1, 导入类
+from scrapy_redis.spiders import RedisCrawlSpider
 
-class AnjuSpider(CrawlSpider):
+# 2, 修改类的继承
+# class AnjuSpider(CrawlSpider):
+class AnjuSpider(RedisCrawlSpider):
     name = 'anju'
-    allowed_domains = ['sh.zu.anjuke.com']
-    start_urls = ['https://sh.zu.anjuke.com/fangyuan/pudong/?from=SearchBar']
+    # 3, 注销允许的域和起始的url
+    # allowed_domains = ['sh.zu.anjuke.com']
+    # start_urls = ['https://sh.zu.anjuke.com/fangyuan/pudong/?from=SearchBar']
+
+    # 4, redis_key
+    redis_key = 'zufang'
+
+    # 5, 编写__init__, 获取允许的域
+    def __init__(self, *args, **kwargs):
+        domain = kwargs.pop('domain', '')
+        self.allowed_domains = list(filter(None, domain.split(',')))
+        super(AnjuSpider, self).__init__(*args, **kwargs)
 
     rules = (
         # 列表页面url提取规则
@@ -40,7 +54,7 @@ class AnjuSpider(CrawlSpider):
         item['floor'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[5]/dd/text()').extract_first()
         item['configure'] = response.xpath('//div[1][@class="pro_links"]/p/span/text()').extract()
         item['desc'] = response.xpath('//*[@id="propContent"]/div/p/text()').extract()  #no ce
-        # print(item)
+        print(item)
 
         # 返回给引擎
         yield item

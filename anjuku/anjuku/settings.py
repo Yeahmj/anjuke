@@ -14,6 +14,14 @@ BOT_NAME = 'anjuku'
 SPIDER_MODULES = ['anjuku.spiders']
 NEWSPIDER_MODULE = 'anjuku.spiders'
 
+# 配置使用scrapy_redis的重复过滤器
+DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
+# 更换调度
+SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
+# 设置调度器队列
+SCHEDULER_PERSIST = True
+
+REDIS_URL = 'redis://127.0.0.1:6379'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
@@ -27,7 +35,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, li
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -64,9 +72,10 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, li
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'anjuku.pipelines.AnjukuPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   # 'anjuku.pipelines.AnjukuPipeline': 300,
+   'scrapy_redis.pipelines.RedisPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
