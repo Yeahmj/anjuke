@@ -24,21 +24,24 @@ class AnjuSpider(CrawlSpider):
         item = AnjukuItem()
 
         # 抽取数据
-        # item['data_source'] = response.url
-        # item['timestamp'] = time.time()
+        item['data_source'] = response.url
+        item['timestamp'] = time.time()
 
         # 从响应中抽取数据
-        # item['title'] = response.xpath('//*[@id="content"]/div[2]/div[1]/h3/text()').extract_first()
-        # item['village'] = response.xpath('//*[@id="content"]/div[1]/a[5]/text()').extract_first()
-        # item['charge'] = response.xpath('//dl[@class="p_phrase cf"]/dd/strong/span/text()').extract_first()
-        # item['fashion'] = response.xpath('//div[@class="litem fl"]/dl[4]/dd/text()').extract_first()
-        # item['house_type'] = response.xpath('//div[@class="litem fl"]/dl[3]/dd/text()').extract_first()
-        # item['address'] = response.xpath('//div[@class="litem fl"]/dl[6]/dd/a/text()').extract()
-        # item['fixture'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[2]/dd/text()').extract_first()
-        # item['area'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[3]/dd/text()').extract_first()
-        # item['direction'] = response.xpath('//div[@class="ritem fr"]/dl[4]/dd/text()').extract_first()
-        # item['floor'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[5]/dd/text()').extract_first()
-        # item['configure'] = response.xpath('//div[1][@class="pro_links"]/p/span/text()').extract()
-        item['desc'] = response.xpath('//*[@id="propContent"]/div/p/text()').extract_first()  #no ce
-        print(item)
+        item['title'] = response.xpath('//*[@id="content"]/div[2]/div[1]/h3/text()').extract_first()
+        item['village'] = response.xpath('//*[@id="content"]/div[1]/a[5]/text()').extract_first()
+        item['charge'] = response.xpath('//dl[@class="p_phrase cf"]/dd/strong/span/text()').extract_first()
+        item['fashion'] = response.xpath('//div[@class="litem fl"]/dl[4]/dd/text()').extract_first()
+        item['house_type'] = response.xpath('//div[@class="litem fl"]/dl[3]/dd/text()').extract_first()
+        item['address'] = response.xpath('//div[@class="litem fl"]/dl[6]/dd/a/text()').extract()
+        item['fixture'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[2]/dd/text()').extract_first()
+        item['area'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[3]/dd/text()').extract_first()
+        item['direction'] = response.xpath('//div[@class="ritem fr"]/dl[4]/dd/text()').extract_first()
+        item['floor'] = response.xpath('//*[@id="content"]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/dl[5]/dd/text()').extract_first()
+        item['configure'] = response.xpath('//div[1][@class="pro_links"]/p/span/text()').extract()
+        item['desc'] = response.xpath('//*[@id="propContent"]/div/p/text()').extract()  #no ce
+        # print(item)
+
+        # 返回给引擎
+        yield item
 
