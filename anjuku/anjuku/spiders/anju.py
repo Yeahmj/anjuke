@@ -27,7 +27,7 @@ class AnjuSpider(RedisCrawlSpider):
 
     rules = (
         # 列表页面url提取规则
-        # Rule(LinkExtractor(allow=r'https://sh\.zu\.anjuke\.com/fangyuan/pudong/p\d+/'), follow=True),
+        Rule(LinkExtractor(allow=r'https://sh\.zu\.anjuke\.com/fangyuan/pudong/p\d+/'), follow=True),
         # 详情页面url提取规则
         Rule(LinkExtractor(allow=r'https://sh\.zu\.anjuke\.com/fangyuan/\d+'), callback='parse_item'),
     )
